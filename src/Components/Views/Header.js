@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import {SiCloud66} from 'react-icons/si'
+import pix from '../assets/hm.jpg'
 
 export default function Header() {
   return (
@@ -12,7 +13,7 @@ export default function Header() {
           <Span>66</Span>
         </Ava>
           <Press>
-            <Avatar />
+            <Avatar src={pix} />
             <Action to={'/post'}><Button>Add diary</Button></Action>
             <Action to={'/diary'}><Button>Diary</Button></Action>
             <Action to={'/signin'}><Button>Log In</Button></Action>

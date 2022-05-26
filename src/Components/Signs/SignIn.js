@@ -5,10 +5,13 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios';
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { createUser } from '../GlobalState'
 
 export default function Signin() {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const formSchema =yup.object().shape({
     email: yup.string().email().required("This filed cnnot be empty"),
@@ -17,7 +20,6 @@ export default function Signin() {
 
   const {
     register,
-    reset,
     handleSubmit,
     formState: { errors }
   } = useForm({
@@ -31,7 +33,7 @@ export default function Signin() {
     const url = `${mode}api/user/signin`
 
     await axios.post(url, { email, password }).then((res) =>{
-      console.log(res)
+      dispatch(createUser(res))
     })
 
     navigate("/diary")
@@ -157,12 +159,4 @@ const A = styled(Link)`
     cursor: pointer;
     color: #8d4d2d;
     text-decoration: none;
-`;
-
-const Avatar = styled.img`
-    border: 2px solid #fff;
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 `;

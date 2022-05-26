@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import {ImFeed} from 'react-icons/im'
+import pix from './assets/ak.jpg'
 
 export default function Diary() {
   return (
@@ -18,7 +19,7 @@ export default function Diary() {
                         </Status>
                     </End>
                     <Avatar>
-                        <img src='' alt="" />
+                        <img src={pix} alt="" />
                         <span>Cast</span>
                     </Avatar>
                     <Text>
