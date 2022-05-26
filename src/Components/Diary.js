@@ -21,10 +21,6 @@ export default function Diary() {
                         <img src='' alt="" />
                         <span>Cast</span>
                     </Avatar>
-                    <Info>
-                        <span>Cast</span>
-                        <span>Cast</span>
-                    </Info>
                     <Text>
                         <p>charset</p>
                     </Text>
@@ -83,17 +79,6 @@ const Status = styled.div`
         font-size: 0.7rem;
     }
 `;
-const Info = styled.div`
-    display: flex;
-    width: 50%;
-    justify-content: space-between;
-    margin-top: 10px;
-    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
-
-    span{
-        font-size: 1rem;
-    }
-`;
 const Avatar = styled.div`
     display: flex;
     flex-direction: column;
@@ -101,11 +86,11 @@ const Avatar = styled.div`
     align-items: center;
 
     img{
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
+        width: 300px;
+        height: 200px;
+        border-radius: 5%;
         object-fit: cover;
-        border: solid 3px #ec7d69;
+        border: solid 1px #fff;
     }
 
     span{

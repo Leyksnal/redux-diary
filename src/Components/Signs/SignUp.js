@@ -1,31 +1,117 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
 import {BsFillCameraFill} from 'react-icons/bs'
 import { Link } from 'react-router-dom';
+import pix from '../assets/ak.jpg'
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import axios from 'axios';
+import { useForm } from 'react-hook-form'
 
 export default function SignUp() {
 
+  const [image, setImage] = useState(pix);
+  const [avatar, setAvatar] = useState("");
+  // const navigate = useNavigate()
+
+  const formSchema =yup.object().shape({
+    userName: yup.string().required("This field cannot be empty"),
+    email: yup.string().email().required("This filed cnnot be empty"),
+    password: yup.string().required("This feild must be filled"),
+    confirm: yup.string().oneOf([
+      yup.ref("password"), null
+    ], "Password doesnt match")
+  })
+
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(formSchema)
+  })
+
+  const handleImage = (e) =>{
+    const file = e.target.files[0]
+    const save = URL.createObjectURL(file)
+    setImage(save)
+    setAvatar(file)
+  }
+
+  const onSumb = handleSubmit(async (value) =>{
+    const { userName, email, password } = value
+    const mode = "http://localhost:3334/"
+
+    const url = `${mode}api/user/register`
+
+    const formData = new FormData()
+    formData.append("userName", userName)
+    formData.append("email", email)
+    formData.append("password", password)
+    formData.append("avatar", avatar)
+
+    const config = {
+      "content-type": "multipart/form-data",
+      // onUploadProgress: (ProgressEvent) =>{
+      //   const {loaded, total} = ProgressEvent
+      //   const percent = Math.floor((loaded * 100) / total)
+      // }
+    }
+
+  //     const options = {
+  //   onUploadProgress: (ProgressEvent) =>{
+  //     const {loaded, total} = ProgressEvent
+  //     const percent = Math.floor((loaded * 100) / total)
+  //   }
+  // }
+
+  await axios.post(url, formData, config).then((res) =>{
+    console.log(res);
+  })
+
+  // navigate("/diary")
+  reset()
+  setImage(pix)
+
+  })
+
+
+
   return (
     <Container>
-      <Wrapper>
+      <Wrapper >
         <Gr>Create An Account</Gr>
-        <Avatar></Avatar>
+        <Avatar src={image}/>
         <label htmlFor='pictureToUpload'>
           <BsFillCameraFill size={'1.3rem'}/>
-          <input id="pictureToUpload" type="file"/>
+          <input id="pictureToUpload" type="file" onChange={handleImage} accept="image/*"/>
         </label>
-        <Put>
-          <input type="text" placeholder='username'/>
-          <input type="text" placeholder='email'/>
-          <input type="text" placeholder='password'/>
-          <input type="text" placeholder='confirm'/>
-        </Put>
-        <Button>sign up</Button>
-        <Info>Already have an account <A to={'/signin'}>Log in</A></Info>
+        <Form onSubmit={onSumb} type="multipart/form-data">
+          <Error>{errors.message && errors?.message.userName}</Error>
+          <input type="text" placeholder='username' {...register("userName")}/>
+          <Error>{errors.message && errors?.message.email}</Error>
+          <input type="email" placeholder='email' {...register("email")}/>
+          <Error>{errors.message && errors?.message.password}</Error>
+          <input type="password" placeholder='password' {...register("password")}/>
+          <Error>{errors.message && errors?.message.confirm}</Error>
+          <input type="password" placeholder='confirm' {...register("confirm")}/>
+          <Button type="submit" >sign up</Button>
+          <Info>Already have an account <A to={'/signin'}>Log in</A></Info>
+        </Form>
       </Wrapper>
     </Container>
   )
 }
+
+
+
+const Error = styled.div`
+	color: red;
+	font-weight: 500;
+	font-size: 12px;
+`;
+
 
 const Container = styled.div`
   display: flex;
@@ -35,7 +121,7 @@ const Container = styled.div`
   height: 90vh;
   color: #fff;
 `;
-const Wrapper = styled.form`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,7 +150,7 @@ const Wrapper = styled.form`
     }
   }
 `;
-const Put = styled.div`
+const Form = styled.form`
   margin-top: 10px;
   display: flex;
   justify-content: center;

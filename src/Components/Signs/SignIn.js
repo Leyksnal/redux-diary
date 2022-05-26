@@ -1,23 +1,70 @@
 import React from 'react'
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import axios from 'axios';
+import { useForm } from 'react-hook-form'
 
-export default function SignIn() {
+export default function Signin() {
+
+  const navigate = useNavigate()
+
+  const formSchema =yup.object().shape({
+    email: yup.string().email().required("This filed cnnot be empty"),
+    password: yup.string().required("This feild must be filled")
+  })
+
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(formSchema)
+  })
+
+  const onSumb = handleSubmit(async (value) =>{
+    const { email, password } = value;
+    const mode = "http://localhost:3334/"
+
+    const url = `${mode}api/user/signin`
+
+    await axios.post(url, { email, password }).then((res) =>{
+      console.log(res)
+    })
+
+    navigate("/diary")
+
+  })
+
+
 
   return (
     <Container>
-      <Wrapper>
-        <Gr>Sign in to your account</Gr>
-        <Put>
-          <input type="text" placeholder='email'/>
-          <input type="text" placeholder='password'/>
-        </Put>
-        <Button>sign in</Button>
-        <Info>Already have an account <A to={'/signup'}>Sign Up</A></Info>
+      <Wrapper >
+        <Gr>Sign In Your Account</Gr>
+        <Form onSubmit={onSumb}>
+          <Error>{errors.message && errors?.message.email}</Error>
+          <input type="email" placeholder='email' {...register("email")}/>
+          <Error>{errors.message && errors?.message.password}</Error>
+          <input type="password" placeholder='password' {...register("password")}/>
+          <Button type="submit" >sign up</Button>
+          <Info>Dont have an account <A to={'/signup'}>Sing Up</A></Info>
+        </Form>
       </Wrapper>
     </Container>
   )
 }
+
+
+
+const Error = styled.div`
+	color: red;
+	font-weight: 500;
+	font-size: 12px;
+`;
+
 
 const Container = styled.div`
   display: flex;
@@ -27,7 +74,7 @@ const Container = styled.div`
   height: 90vh;
   color: #fff;
 `;
-const Wrapper = styled.form`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,7 +103,7 @@ const Wrapper = styled.form`
     }
   }
 `;
-const Put = styled.div`
+const Form = styled.form`
   margin-top: 10px;
   display: flex;
   justify-content: center;
