@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    currentUser: null
+    currentUser: null,
+    memories: []
 }
 
 const GlobalState = createSlice({
@@ -14,10 +15,14 @@ const GlobalState = createSlice({
 
       signOut: (state) =>{
           state.currentUser = null;
+      },
+
+      memoData: (state, {payload}) =>{
+          state.memories = payload
       }
   }
 });
 
-export const {createUser, signOut} = GlobalState.actions
+export const {createUser, signOut, memoData} = GlobalState.actions
 
 export default GlobalState.reducer

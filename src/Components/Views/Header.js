@@ -2,23 +2,38 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import {SiCloud66} from 'react-icons/si'
-import pix from '../assets/hm.jpg'
+import { useDispatch, useSelector } from 'react-redux';
+import { signOut }  from '../GlobalState'
 
 export default function Header() {
+
+  const dispatch = useDispatch()
+  const userData = useSelector((state)=> state.currentUser)
+
+
   return (
     <Container>
       <Wrapper>
         <Ava to='/'>
           <SiCloud66 size={'2.5rem'}/>
-          <Span>66</Span>
+          <Span>Welcome {userData?.userName}</Span>
         </Ava>
+
+        {userData? <div>
           <Press>
-            <Avatar src={pix} />
+            <Avatar src={userData?.avatar} />
             <Action to={'/post'}><Button>Add diary</Button></Action>
             <Action to={'/diary'}><Button>Diary</Button></Action>
+            <Button onClick={() =>{
+              dispatch(signOut())
+            }}>Log out</Button>
+          </Press>
+        </div>: <div>
+        <Press>
             <Action to={'/signin'}><Button>Log In</Button></Action>
             <Action to={'/signup'}><Button>Sign up</Button></Action>
           </Press>
+        </div> }
       </Wrapper>
     </Container>
   )
@@ -42,15 +57,16 @@ const Wrapper = styled.div`
 const Button = styled.button`
   width: 110px;
   height: 35px;
-  background-color: #C4421A;
+  background-color: #000;
   color: #fff;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 1rem;
   outline: none;
   border: none;
   border-radius: 8px;
   transition: all 100ms;
   transform: scale(1);
+  margin: 0 5px;
 
     :hover{
         cursor: pointer;
@@ -66,9 +82,7 @@ cursor: pointer;
 color: #fff;
 `;
 const Press = styled.div`
-  width: 550px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 `;
 const Span = styled.span`

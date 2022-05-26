@@ -33,7 +33,7 @@ export default function Signin() {
     const url = `${mode}api/user/signin`
 
     await axios.post(url, { email, password }).then((res) =>{
-      dispatch(createUser(res))
+      dispatch(createUser(res.data.data))
     })
 
     navigate("/diary")

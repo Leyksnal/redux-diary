@@ -1,31 +1,67 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import {ImFeed} from 'react-icons/im'
 import pix from './assets/ak.jpg'
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { memoData } from './GlobalState';
 
 export default function Diary() {
+
+    const dispatch = useDispatch()
+    const [getData, setGetData] = useState([])
+    const user = useSelector((state) => state.currentUser)
+    const memo = useSelector((state) => state.memories)
+
+    const id = user._id
+
+    const onGetData = async () =>{
+        try {
+
+            const mainRout = "http://localhost:3334/"
+            const url = `${mainRout}api/diary/${id}`
+
+            await axios.get(url).then((res) =>{
+
+                setGetData(res.data.data.diary)
+                dispatch(memoData(res.data.data.diary))
+            })
+
+            console.log(getData);
+            
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    useEffect(() =>{
+        onGetData()
+    }, [])
+
   return (
     <>
         <Wall>
             <Head><ImFeed size={'2.5rem'}/><span>Feeds</span>
             </Head>
             <Container>
-                <Wrapper>
-                    <End>
-                        <Status>
-                            <Pan></Pan>
-                            <p>Online</p>
-                        </Status>
-                    </End>
-                    <Avatar>
-                        <img src={pix} alt="" />
-                        <span>Cast</span>
-                    </Avatar>
-                    <Text>
-                        <p>charset</p>
-                    </Text>
-                </Wrapper>
+                {/* {memo?.map((props) =>{ */}
+                    <Wrapper>
+                        <End>
+                            <Status>
+                                <Pan></Pan>
+                                <p>Online</p>
+                            </Status>
+                        </End>
+                        <Avatar>
+                            <img src={pix} alt="" />
+                            <span>Cast</span>
+                        </Avatar>
+                        <Text>
+                            <p>charset</p>
+                        </Text>
+                    </Wrapper>
+                {/* })} */}
             </Container>
             <Action to={'/'}><Button>Home</Button></Action>
         </Wall>
