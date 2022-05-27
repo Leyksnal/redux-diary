@@ -24,11 +24,11 @@ export default function Diary() {
 
             await axios.get(url).then((res) =>{
 
-                setGetData(res.data.data.diary)
+                // setGetData(res.data.data.diary)
                 dispatch(memoData(res.data.data.diary))
             })
 
-            console.log(getData);
+            // console.log(getData);
             
         } catch (error) {
             console.log(error.message);
