@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Diary from './Components/Diary'
+import Fav from './Components/Fav'
 import Post from './Components/Post'
 import { Private } from './Components/Private'
 import SignIn from './Components/Signs/SignIn'
@@ -19,6 +20,9 @@ export default function App() {
       <Route path='/post' element={<Post/>}/>
       <Route path='/diary' element={<Private>
         <Diary/>
+      </Private>}/>
+      <Route path='/favorite' element={<Private>
+        <Fav/>
       </Private>}/>
     </Routes>
     </BrowserRouter>

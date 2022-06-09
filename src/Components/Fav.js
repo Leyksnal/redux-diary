@@ -2,83 +2,39 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import {ImFeed} from 'react-icons/im'
-import {AiOutlineEdit} from 'react-icons/ai'
-import {MdOutlineFavoriteBorder, MdDeleteOutline} from 'react-icons/md'
 import pix from './assets/ak.jpg'
+import {IoIosRemove} from 'react-icons/io'
+import {GiTargeting} from 'react-icons/gi'
 
-// import { useDispatch, useSelector } from 'react-redux';
-// import axios from 'axios';
-// import { memoData } from './GlobalState';
-
-export default function Diary() {
-
-    // const dispatch = useDispatch()
-    // const [getData, setGetData] = useState([])
-    // const user = useSelector((state) => state.currentUser)
-    // const memo = useSelector((state) => state.memories)
-
-    // const id = user._id
-
-    // const onGetData = async () =>{
-    //     try {
-
-    //         const mainRout = "http://localhost:3334/"
-    //         const url = `${mainRout}api/diary/${id}`
-
-    //         await axios.get(url).then((res) =>{
-
-    //             // setGetData(res.data.data.diary)
-    //             dispatch(memoData(res.data.data.diary))
-    //         })
-
-    //         // console.log(getData);
-            
-    //     } catch (error) {
-    //         console.log(error.message);
-    //     }
-    // }
-
-    // useEffect(() =>{
-    //     onGetData()
-    // }, [])
-
+export default function Fav() {
   return (
-    <>
-        <Wall>
-            <Container>
-                    <Wrapper>
-                        <End>
-                            <Status>
-                                <Pan></Pan>
-                                <p>Online</p>
-                            </Status>
-                        </End>
-                        <Avatar>
-                            <Img src={pix} alt="" />
-                            <Title>Cast</Title>
-                        </Avatar>
-                        <Text>
-                            <Message>charset</Message>
-                        </Text>
-                        <Act>
-                            <Icon />
-                            <Icon2 />
-                            <Icon3 />
-                        </Act>
-                    </Wrapper>
-            </Container>
-        </Wall>
-    </>
+    <Wall>
+        <Head><GiTargeting size={'2.5rem'}/><span>Favorite</span>
+        </Head>
+        <Container>
+            <Wrapper>
+                <End>
+                    <Status>
+                        <Pan></Pan>
+                        <p>Online</p>
+                    </Status>
+                </End>
+                <Avatar>
+                    <Img src={pix} alt="" />
+                    <span>Cast</span>
+                </Avatar>
+                <Text>
+                    <Message>charset</Message>
+                </Text>
+                <Act>
+                    <Icon />
+                </Act>
+            </Wrapper>
+        </Container>
+    </Wall>
   )
 }
 
-
-
-const Title = styled.div`
-margin-top: 10px;
-font-size: 1rem;
-text-align: center;
-`;
 
 const Img = styled.img`
 width: 100%;
@@ -88,55 +44,29 @@ object-fit: cover;
 
 const Act = styled.div`
 display: flex;
-justify-content: space-between;
+justify-content: center;
 align-items: center;
 margin-bottom: 10px;
 width: 100%;
 `;
-const Icon = styled(AiOutlineEdit)`
+const Icon = styled(IoIosRemove)`
 font-size: 1.4rem;
 margin: 0 10px;
-border: 2px solid #fff;
-border-radius: 50%;
-padding: 3px 3px;
 transition: all 300ms;
 
 :hover{
     border: 0;
     cursor: pointer;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    padding: 3px 3px;
 }
 `;
-const Icon2 = styled(MdDeleteOutline)`
-font-size: 1.4rem;
-margin: 0 10px;
-border: 2px solid #fff;
-border-radius: 50%;
-padding: 3px 3px;
-transition: all 300ms;
 
-:hover{
-    border: 0;
-    cursor: pointer;
-}
-`;
-const Icon3 = styled(MdOutlineFavoriteBorder)`
-font-size: 1.4rem;
-margin: 0 10px;
-border: 2px solid #fff;
-border-radius: 50%;
-padding: 3px 3px;
-transition: all 300ms;
-
-:hover{
-    border: 0;
-    cursor: pointer;
-}
-`;
 const Message = styled.div`
 width: 100%;
 font-size: 1rem;
 `;
-
 const Container = styled.div`
     display: flex;
     color: #fff;
@@ -189,12 +119,19 @@ const Avatar = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
+
+    span{
+        margin-top: 10px;
+        font-size: 1rem;
+    }
 `;
 const Text = styled.div`
     width: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* text-align: center; */
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     margin: 10px;
     padding: 5px 10px;
 `;
@@ -241,6 +178,7 @@ const Head = styled.div`
     margin: 10px;
     span{
         font-size: 1.5rem;
+        margin-left: 10px;
     }
 `;
 

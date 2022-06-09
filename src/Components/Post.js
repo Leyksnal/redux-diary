@@ -1,11 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import {FaImages} from 'react-icons/fa'
+import Diary from './Diary'
 
 export default function Post() {
 
 
   return (
+      <>
     <Container>
         <Wrapper>
             <Topper>
@@ -15,13 +17,15 @@ export default function Post() {
             <Content placeholder='Write your stuffs here'/>
             <Action>
                 <label htmlFor='statusUpload'>
-                    <FaImages size={'1.3rem'}/>
+                    <FaImages size={'1rem'}/>
                     <input id='statusUpload' type="file"/>
                 </label>
                 <Button>Post</Button>
             </Action>
         </Wrapper>
     </Container>
+    <Diary/>
+    </>
   )
 }
 
@@ -29,21 +33,22 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px;
+    margin: 10px;
     color: #fff;
 `;
 
 
 const Upload = styled.img`
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
 `;
 
 
-const Head = styled.h2`
+const Head = styled.div`
     margin-bottom: -28px;
     margin-left: 10px;
+    font-size: 1rem;
 `;
 
 
@@ -57,33 +62,33 @@ const Topper = styled.div`
 
 
 const Wrapper = styled.div`
-    width: 600px;
+    width: 500px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-    background-color: #4192ff;
+    background-color: #58A7A8;
     border-radius: 18px;
     align-items: center;
 `;
 
 
 const Action = styled.div`
-    margin: 10px;
+    margin-left: 10px;
     width: 470px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     label{
-    border: 3px solid #fff;
-    width: 40px;
-    height: 40px;
+    border: 2px solid #fff;
+    width: 30px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    margin-top: 10px;
+    margin: 10px 0;
 
     input{
       display: none;
@@ -96,34 +101,31 @@ const Action = styled.div`
 `;
 
 const Button = styled.button`
-    width: 130px;
-    height: 40px;
-    outline: none;
-    border: none;
-    font-size: 1.2rem;
-    font-weight: 600;
-    border-radius: 8px;
-    transition: all 400ms;
-    transform: scale(1);
-    color: #4192ff;
+  background-color: transparent;
+  color: #832C28;
+  font-weight: 600;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  transition: all 200ms;
 
     :hover{
         cursor: pointer;
-        transform: scale(0.9);
-    }
+        color: #fff;
+    } 
 `;
 
 
 const Content = styled.textarea`
     width: 450px;
-    height: 70px;
+    height: 40px;
     resize: none;
     outline: none;
     border: none;
     border-radius: 10px;
     margin: 10px;
     padding: 10px;
-    font-size: 1.2rem;
+    font-size: 1rem;
 `;
 
 

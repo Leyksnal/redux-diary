@@ -21,12 +21,13 @@ export default function Header() {
 
         {userData? <div>
           <Press>
-            <Avatar src={userData?.avatar} />
             <Action to={'/post'}><Button>Add diary</Button></Action>
             <Action to={'/diary'}><Button>Diary</Button></Action>
+            <Action to={'/favorite'}><Button>Favorite</Button></Action>
             <Button onClick={() =>{
               dispatch(signOut())
             }}>Log out</Button>
+            <Avatar src={userData?.avatar} />
           </Press>
         </div>: <div>
         <Press>
@@ -55,26 +56,19 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 const Button = styled.button`
-  width: 110px;
-  height: 35px;
-  background-color: #000;
+  background-color: transparent;
   color: #fff;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 1rem;
   outline: none;
   border: none;
-  border-radius: 8px;
-  transition: all 100ms;
-  transform: scale(1);
+  transition: all 200ms;
   margin: 0 5px;
 
     :hover{
         cursor: pointer;
-        transform: scale(0.9);
-        background-color: transparent;
-        border: 3px solid #fff;
-        color: #fff;
-    }  
+        color: #832C28;
+    } 
 `;
 const Ava = styled(Link)`
 text-decoration: none;
